@@ -7,9 +7,12 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django import forms
 from formlib.form import FormMixIn
 from django.contrib.auth.models import Permission, Group
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
 
 @view_function
+@permission_required('account.View_users', login_url='/homepage/index/')
+@login_required(login_url='/account/login_class/')
 def process_request(request):
 
 #Pull all users from the database
@@ -26,7 +29,7 @@ def process_request(request):
 
 
 @view_function
-# @permission_required('change_fomouser', login_url='/Administrator/index/')
+@permission_required('catalog.change_product', login_url='/Administrator/users/')
 def edit(request):
     user = amod.FomoUser.objects.get(id=request.urlparams[0])
 
@@ -110,7 +113,7 @@ class EditProductForm(FormMixIn, forms.Form):
 
 ################################################
 @view_function
-@permission_required('delete_fomouser', login_url='/Administrator/products/')
+@permission_required('catalog.delete_fomouser', login_url='/Administrator/users/')
 def delete(request):
     try:
         user = amod.FomoUser.objects.get(id=request.urlparams[0])

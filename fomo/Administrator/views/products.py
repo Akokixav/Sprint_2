@@ -8,8 +8,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
 
 @view_function
+# @permission_required('account.delete_product', login_url='/homepage/index/')
+@permission_required('account.View_products', login_url='/homepage/index/') 
 @login_required(login_url='/account/login_class/')
-@permission_required('View_products', login_url='/homepage/index/')
+
 def process_request(request):
 
 #Pull all products from the database

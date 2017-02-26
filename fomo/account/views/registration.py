@@ -39,6 +39,14 @@ class SignupForm(FormMixIn, forms.Form):
         self.fields['state'] = forms.CharField(label='State')
         self.fields['birthday'] = forms.DateField(required = True)
 
+    def clean_username(self):
+        un = self.cleaned_data.get('username')
+        users = amod.FomoUser.objects.filter(username = un).exclude(id = self.request.user.id)
+
+        if len(users) > 0:
+            raise forms.ValidationError('This username is taken')
+
+        return un
 
     def commit(self, user):
         user.username = self.cleaned_data.get('username')

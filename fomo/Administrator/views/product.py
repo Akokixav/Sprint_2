@@ -11,7 +11,8 @@ from django.contrib.auth.decorators import permission_required
 from django import forms
 
 @view_function
-@permission_required('change_product', login_url='/Administrator/products/')
+@login_required(login_url='/account/login_class/')
+@permission_required('catalog.change_product', login_url='/Administrator/products/')
 def process_request(request):
 
     try:
@@ -64,7 +65,7 @@ class EditProductForm(FormMixIn, forms.Form):
 
 
 @view_function
-@permission_required('delete_product', login_url='/homepage/index/')
+@permission_required('catalog.delete_product', login_url='/Administrator/products/')
 def delete(request):
     try:
         product = cmod.Product.objects.get(id=request.urlparams[0])

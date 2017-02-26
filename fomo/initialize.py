@@ -65,6 +65,58 @@ from catalog import models as cmod
 #End of database drop and migrations
 
 
+#PERMISSION CREATION
+content_type =ContentType.objects.get_for_model(FomoUser)
+permissions = Permission.objects.create(
+    codename = 'View_products',
+    name = 'Can view list of products',
+    content_type = content_type,
+    )
+
+permissions = Permission.objects.create(
+    codename = 'View_users',
+    name = 'Can view list of users',
+    content_type = content_type,
+    )
+
+#GROUPS CREATION
+g1 = Group()
+g1.name = 'Manager'
+g1.save()
+
+g2 = Group()
+g2.name = 'Salesperson'
+g2.save()
+
+g3 = Group()
+g3.name = 'Admin'
+g3.save()
+
+'Permissions creation'
+
+g1.permissions.add(Permission.objects.get(codename=('add_fomouser')))
+g1.permissions.add(Permission.objects.get(codename=('change_fomouser')))
+g1.permissions.add(Permission.objects.get(codename=('add_product')))
+g1.permissions.add(Permission.objects.get(codename=('change_product')))
+g1.permissions.add(Permission.objects.get(codename=('View_products')))
+g1.permissions.add(Permission.objects.get(codename=('View_users')))
+
+
+g2.permissions.add(Permission.objects.get(codename=('View_products')))
+g2.permissions.add(Permission.objects.get(codename=('View_users')))
+
+
+for p in Permission.objects.all():
+    # print(p.code)
+    g3.permissions.add(p)
+g3.permissions.add(Permission.objects.get(codename=('View_products')))
+g3.permissions.add(Permission.objects.get(codename=('View_users')))
+g3.permissions.add(Permission.objects.get(codename=('change_fomouser')))
+
+
+
+
+
 
 
 #Query all / some with different query OPTIONS
@@ -199,54 +251,6 @@ up3.price = Decimal('750.00') #
 up3.serial_number = '897dnsaiuefhi' #
 up3.save()
 #end of unique products
-
-
-#create groups
-g1 = Group()
-g1.name = 'Manager'
-g1.save()
-
-'Permissions creation'
-
-g1.permissions.add(Permission.objects.get(codename=('add_fomouser')))
-g1.permissions.add(Permission.objects.get(codename=('change_fomouser')))
-g1.permissions.add(Permission.objects.get(codename=('add_product')))
-g1.permissions.add(Permission.objects.get(codename=('change_product')))
-
-
-
-g2 = Group()
-g2.name = 'Salesperson'
-g2.save()
-
-g2.permissions.add(Permission.objects.get(codename=('add_product')))
-g2.permissions.add(Permission.objects.get(codename=('change_product')))
-g2.permissions.add(Permission.objects.get(codename=('delete_product')))
-
-#PERMISSION CREATION
-content_type =ContentType.objects.get_for_model(FomoUser)
-permissions = Permission.objects.create(
-    codename = 'View_products',
-    name = 'Can view list of products',
-    content_type = content_type,
-    )
-
-permissions = Permission.objects.create(
-    codename = 'View_users',
-    name = 'Can view list of users',
-    content_type = content_type,
-    )
-
-
-g3 = Group()
-g3.name = 'Admin'
-g3.save()
-for p in Permission.objects.all():
-    # print(p.code)
-    g3.permissions.add(p)
-g3.permissions.add(Permission.objects.get(codename=('View_products')))
-g3.permissions.add(Permission.objects.get(codename=('View_users')))
-g3.permissions.add(Permission.objects.get(codename=('change_fomouser')))
 
 #Adding user to group
 g = Group.objects.get(name='Admin')
