@@ -1,0 +1,55 @@
+.content{
+        color: blue;
+}
+
+#header_icon {
+  background-color: red;
+}
+
+#myfooter{
+padding: 50px;
+background-color: black;
+position: absolute;
+bottom: 0;
+right: 0;
+left: 0;
+
+}
+
+
+#header_navbar{
+  /*padding-top: 20px;*/
+}
+
+#fomo_logo{
+  height: auto;
+    width: auto;
+    max-height: 50px;
+    max-width: 250px;
+    padding-right: 10px;
+}
+
+#maintenance{
+  background-color: black;
+}
+
+#nihao{
+  position: absolute;
+  top: 10;
+  right: 10;
+}
+
+div#nihao.alert.alert-warning.alert-dismissible{
+    margin-bottom: 0px;
+}
+
+#alert{
+position: fixed;;
+width: 250px;
+top:20px;
+right:50px;
+}
+
+#welcome{
+   display: inline-block;
+}

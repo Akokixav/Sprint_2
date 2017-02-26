@@ -1,0 +1,273 @@
+## this is the skeleton of all pages on in this app - it defines the basic html tags
+
+## imports
+<%! from django_mako_plus import get_template_css, get_template_js %>
+
+
+<!DOCTYPE html>
+<html>
+  <meta charset="UTF-8">
+  <head>
+    <!-- Tab icon -->
+      <!-- <link rel="icon" href="http://icons.iconarchive.com/icons/dtafalonso/yosemite-flat/512/Music-icon.png"> -->
+      <link rel="icon" href="${STATIC_URL}homepage/media/fomo_logo.png">
+    <title>Welcome to Fomo</title>
+
+    ## add any site-wide scripts or CSS here; for example, jquery:
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    ## render the css with the same name as this page
+    ${ get_template_css(self, request, context) }
+    <!-- <link rel="stylesheet" href="${STATIC_URL}homepage/styles/bootstrap.min.css" > -->
+    <link rel="stylesheet" href="${STATIC_URL}fomo/bootstrap/css/bootstrap.min.css" >
+    <!-- <link rel="stylesheet" href="${STATIC_URL}homepage/styles/bootstrap.css" > -->
+    <link rel="stylesheet" href="${STATIC_URL}fomo/bootstrap/css/bootstrap.css" >
+
+    <link rel="stylesheet" href="${STATIC_URL}homepage/styles/homepage_base.css" >
+
+      <!-- <link rel="stylesheet" href="${STATIC_URL}homepage/media/jquery.datetimepicker.min.css" >
+
+      <script src="${ STATIC_URL }fomo/bootstrap/js/bootstrap.min.js"></script>
+
+      <script src="${ STATIC_URL }homepage/media/jquery.datetimepicker.full.js"></script> -->
+
+
+
+    <!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!--TEST -->
+
+
+
+  </head>
+  <body>
+    <!-- ${STATIC_URL}homepage/media/violin.png -->
+    <!-- <a href="#content">Skip to main content</a> -->
+
+<!-- MAINTENANCE MESSAGE  -->
+
+
+
+
+<!--     -->
+    <header>
+      <!-- <h3>Welcome to the homepage app!</h3> -->
+      <!-- <link rel="icon" href="${STATIC_URL}homepage/media/violin.png"> -->
+
+    </header>
+
+
+<p> </p
+<div class="container">
+
+  <!-- <div class="alert alert-danger maintenance" role="alert">
+
+  </div> -->
+
+  <div id="maintenance">
+    <p class="text-center">OUR WEBSITE IS CURRENTLY IN MAINTENANCE</p>
+  </div>
+
+
+
+  <div id="header_navbar" class="navbar">
+      <%block name="header_navbar1">
+
+      <nav class="navbar navbar-default">
+        <div class="row">
+        <div class="container">
+
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <!-- <a class="navbar-brand" href="index">FOMO</a> -->
+            <img class="img-responsive" id="fomo_logo" src="${STATIC_URL}homepage/media/fomo_logo.png">
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+
+              <%block name="menu_items">
+
+              <li class="${ 'active' if(request.dmp_router_page == 'index') else '' }"><a href="/homepage/index"><span class="glyphicon glyphicon-home"></span></a></li>
+              <!-- <li><a href="/homepage/about">About</a></li> -->
+              <li class="${ 'active' if(request.dmp_router_page == 'about') else '' }"><a href="/homepage/about/">About</a></li>
+              <!-- <li><a href="/homepage/contact">Contact</a></li> -->
+              <li class="${ 'active' if(request.dmp_router_page == 'contact') else '' }"><a href="/homepage/contact/">Contact</a></li>
+              <!-- <li><a href="faq">FAQ</a></li> -->
+              <li class="${ 'active' if(request.dmp_router_page == 'faq') else '' }"><a href="/homepage/faq/">Faq</a></li>
+              <!-- <li><a href="sections">Sections</a></li> -->
+              <li class="${ 'active' if(request.dmp_router_page == 'sections') else '' }"><a href="/homepage/sections/">Sections</a></li>
+
+              <li class="${ 'active' if(request.dmp_router_page == 'terms') else '' }"><a href="/homepage/terms/">Terms</a></li>
+
+
+
+              <li class="${ 'active' if(request.dmp_router_page == 'Admin') else '' }"><a href="/Administrator/index/">Admin</a></li>
+
+            </ul>
+            <%block name="navbar_right">
+        <ul class="nav navbar-nav navbar-right">
+
+          %if not user.is_authenticated:
+
+          <!-- Log out notification -->
+          <!-- <div class="alert alert-success alert-dismissible" id="alert" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Warning!</strong> You barely login, welcome valued customer.
+          </div> -->
+
+          <!-- <div class="alert alert-success alert-dismissible" id="alert" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Warning!</strong> You barely login, welcome valued customer.
+          </div> -->
+
+
+         <li><a href="/account/registration">  Sign Up</a></li>
+          <li class="${ 'active' if(request.dmp_router_page == 'login_class') else '' }"><a href="/account/login_class/">Login  <span class="glyphicon glyphicon-user"></span></a></li>
+         <!-- <li class="dropdown">
+           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Login <span class="caret"></span></a>
+           <ul id="login-dp" class="dropdown-menu">
+             <li>
+               <div class="row">
+                 <div class="col-md-12">
+
+                   <form class="form" role="form" method="post" action="/account/login/" id="login-nav">
+                     <input type='hidden' name='csrfmiddlewaretoken' value='${ csrf_token }' />
+                     <div class="form-group">
+                       <label class="sr-only" for="username">Username</label>
+                       <input class="form-control" name="username" placeholder="Username" required>
+                     </div>
+                     <div class="form-group">
+                       <label class="sr-only" for="password">Password</label>
+                       <input type="password" class="form-control" name="password" placeholder="Password" required>
+                     </div>
+                     <div class="form-group">
+                       <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                     </div>
+                   </form>
+
+                 </div>
+               </div>
+             </li>
+           </ul>
+         </li> -->
+       %elif user.is_superuser:
+         <li><p id="welcome" >Welcome, ${ user.first_name }!</p></li>
+         <li><a href="/Administrator/index">Admin</a></li>
+         <li><a href="/account/logout/">Logout</a></li>
+       %else:
+         <!-- <li><p>Welcome, ${ user.first_name }!</p></li> -->
+
+
+
+         <li class="dropdown">
+               <a class="dropdown-toggle" data-toggle="dropdown">Account
+                 <span class="caret"></span></a>
+                 <ul class="dropdown-menu">
+
+                   <!-- <li><a href="/admin/">Admin Page</a></li>
+                   <li><a href="/manager/">Manager Page</a></li>
+                   <li><a href="/homepage/">Home Page</a></li> -->
+                   <li><a href="/account/edit/${user.id}/">Edit Account</a></li>
+                   <li><a href="/account/password/${user.id}/">Change Password</a></li>
+                    <li><a href="/account/logout">Logout</a></li>
+
+                 </ul>
+          </li>
+
+         <!-- Login notification -->
+         <!-- <div class="alert alert-success alert-dismissible" id="alert" role="alert">
+           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+           <strong>Warning!</strong> You barely login, welcome valued customer.
+         </div> -->
+
+       %endif
+
+
+            </ul>
+
+            </%block>
+          </%block>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </div>
+      </nav>
+
+
+      %if request.user.is_authenticated:
+      <!-- <p class="text-center">Welcome ${request.user.username}</p> -->
+      <p class="text-center">Welcome ${request.user.first_name} ${request.user.last_name} </p>
+      %endif
+      </%block>
+    </div>
+
+<%block name="full_content">
+    <div class="container" id="content">
+        <div class="row">
+          <%block name="top_content">
+            <div class="col-md-12">
+          </%block></div>
+        </div>
+    </div>
+
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-2">
+          <%block name="left_content">
+          </%block>
+
+        </div>
+
+        <div class="col-md-8">
+            <%block name="middle_content">
+            </%block>
+
+        </div>
+
+        <div class="col-md-2">
+          <%block name="right_content">
+          </%block>
+        </div>
+      </div>
+    </div>
+
+</%block>
+    <!-- <%block name="content">
+
+
+
+    </%block> -->
+
+
+    <%block name="footer">
+    <div id="myfooter">
+
+      <%! from datetime import datetime %>
+      &copy; Copyright Stephane Akoki  ${datetime.now().year}
+
+    </div>
+
+    </%block>
+
+    ## render the JS with the same name as this page
+    ${ get_template_js(self, request, context) }
+  </div>
+  </body>
+</html>
+
+<!-- PROJECT EXPECTATION
+fomo/
+occount/ - login, log out, signup, edit my account, change my pwd
+administrator/ add new products, edit product, detail, etc.
+catalog/ sales site, show product index, search, detail page
+homepage/ - index, contact, about
+
+
+
+-->
